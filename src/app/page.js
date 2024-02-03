@@ -1,9 +1,14 @@
-import { ThemeToggle } from "@/components/theme-toggler";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
+
 export default function Home() {
   return (
-    <main>
-      Ink Insight
-      <ThemeToggle />
-    </main>
+    <>
+      <Header />
+      <main className="container mx-auto">
+        Content
+      </main>
+      <Footer/>
+    </>
   );
 }
