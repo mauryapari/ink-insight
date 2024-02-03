@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Footer() {
     return (
-        <footer className="py-10 border-t-2 border-t-accent">
+        <footer className="py-10 border-t-2 border-t-primary bg-accent">
             <div className="container mx-auto">
                 <div className="py-10 flex gap-4 justify-center">
                     <Link href="/" className="bg-primary rounded-sm p-2"><FaFacebookF className="text-secondary" /></Link>
