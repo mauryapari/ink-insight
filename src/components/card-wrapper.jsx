@@ -9,8 +9,12 @@ export default function CardWrapper(props) {
             <CardContent>{children}</CardContent>
             <CardFooter className="flex flex-col">
                 {showOtherLoginOptions &&
-                    <div className="mb-8 pt-8 border-t-2 w-full text-center">
-                        <p className="text-xs mb-4"> Sign in Via </p>
+                    <div className="mb-8 pt-4 w-full text-center">
+                        <div className="flex mb-8 items-center">
+                            <div className="h-[1px] bg-slate-500 flex flex-1 "></div>
+                            <p className="text-xs mx-4"> or </p>
+                            <div className="h-[1px] bg-slate-500 flex flex-1 "></div>
+                        </div>
                         <OauthLogin />
                     </div>
                 }

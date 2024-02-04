@@ -10,8 +10,13 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useForm } from 'react-hook-form';
 import CardWrapper from '../card-wrapper';
 import { LoginFormSchema } from '@/schema';
+import { login } from '../../../actions/login';
+import {toast} from 'sonner';
+import { useRouter } from 'next/navigation';
+import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 
 export default function LoginForm() {
+    const router = useRouter();
     const form = useForm({
         resolver: zodResolver(LoginFormSchema),
         defaultValues: {
@@ -20,8 +25,14 @@ export default function LoginForm() {
         }
     });
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
+        const res = await login(data);
+        if(res.error) {
+            toast.error(res.error);
+        } else {
+            toast.success(res.success);
+            router.push(DEFAULT_LOGIN_REDIRECT);
+        }
     };
 
     return (

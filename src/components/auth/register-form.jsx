@@ -7,9 +7,11 @@ import CardWrapper from "../card-wrapper";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { toast } from "sonner";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterFormSchema } from "@/schema";
+import { register } from '../../../actions/register';
 
 export default function RegisterForm() {
     const form = useForm({
@@ -21,8 +23,14 @@ export default function RegisterForm() {
         }
     });
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data);
+        const res = await register(data);
+        if (res.error) {
+            toast.error(res.error);
+        } else {
+            toast.success(res.success);
+        }
     }
 
     return (
@@ -35,11 +43,10 @@ export default function RegisterForm() {
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-4">
-
                         <FormField
                             control={form.control}
                             name="name"
-                            render={(field) => (
+                            render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
@@ -52,7 +59,7 @@ export default function RegisterForm() {
                         <FormField
                             control={form.control}
                             name="email"
-                            render={(field) => (
+                            render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
@@ -65,7 +72,7 @@ export default function RegisterForm() {
                         <FormField
                             control={form.control}
                             name="password"
-                            render={(field) => (
+                            render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
