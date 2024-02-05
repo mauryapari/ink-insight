@@ -30,7 +30,8 @@ export const register = async (values) => {
         data: {
             name,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            image: "https://picsum.photos/30/30"
         }
     })
 

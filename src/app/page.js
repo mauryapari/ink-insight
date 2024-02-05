@@ -1,9 +1,7 @@
 export default function Home() {
-  return (
-    <>
-      <main className="container mx-auto">
-        Content
-      </main>
-    </>
-  );
+    return (
+        <main className="container mx-auto">
+            Content
+        </main>
+    );
 }

@@ -74,3 +74,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+.quill {
+  min-height: 200px;
+}
+
+.ql-container {
+  font-size: 28px !important;
+}
+
+.quill > .ql-container > .ql-editor.ql-blank::before {
+  /* color: #b3b3b1 !important20 */
+  color: #94a3b8 !important
+}

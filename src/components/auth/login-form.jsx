@@ -59,6 +59,19 @@ export default function LoginForm() {
                         />
                         <FormField
                             control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Username</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Enter Mail" {...field} type="email" className="border-2"/>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
                             name="password"
                             render={({ field }) => (
                                 <FormItem>
@@ -71,7 +84,7 @@ export default function LoginForm() {
                             )}
                         />
                     </div>
-                    <Button size={"full"} className="shadow-md drop-shadow-sm">Login</Button>
+                    <Button size={"full"} className="shadow-md drop-shadow-sm">Publish</Button>
                 </form>
             </Form>
         </CardWrapper>

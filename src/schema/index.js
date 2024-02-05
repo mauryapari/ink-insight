@@ -16,3 +16,13 @@ export const RegisterFormSchema = z.object({
         message: 'Password must be 6 char long'
     })
 })
+
+export const BlogFormSchema = z.object({
+    category:z.string(),
+    title: z.string().min(4,{
+        message: 'Title should be 4 char long',
+    }),
+    description: z.string().min(4, {
+        message: 'Description should be 4 char long.'
+    })
+})
