@@ -5,6 +5,7 @@ import {
     publicRoutes,
     authenticationRoutes,
     apiAuthPrefix,
+    blogPagePrefix,
     DEFAULT_LOGIN_REDIRECT
 } from "./routes";
 
@@ -16,7 +17,7 @@ export default auth((req) => {
     const isLoggedIn = !!req.auth;
 
     const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-    const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+    const isPublicRoute = publicRoutes.includes(nextUrl.pathname) || nextUrl.pathname.startsWith(blogPagePrefix);
     const isAuthRoute = authenticationRoutes.includes(nextUrl.pathname);
 
     if(isApiAuthRoute) {

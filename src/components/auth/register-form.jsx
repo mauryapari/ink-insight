@@ -12,8 +12,11 @@ import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterFormSchema } from "@/schema";
 import { register } from '../../../actions/register';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterForm() {
+    const router = useRouter();
+
     const form = useForm({
         resolver: zodResolver(RegisterFormSchema),
         defaultValues: {
@@ -30,6 +33,7 @@ export default function RegisterForm() {
             toast.error(res.error);
         } else {
             toast.success(res.success);
+            router.push('/auth/login');
         }
     }
 

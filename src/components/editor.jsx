@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.bubble.css";
+import useSWR from 'swr'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
@@ -9,15 +10,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { BlogFormSchema } from "@/schema";
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
+import Spinner from "./ui/spinner";
+import { toast } from 'sonner';
+import { createBlog } from "../../actions/blogs";
 
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-export default function BasicEditor({ categories }) {
+export default function BasicEditor() {
+    const { data, error, isLoading } = useSWR('/api/category', fetcher);
+    
     const form = useForm({
         resolver: zodResolver(BlogFormSchema),
         defaultValues: {
-            category: '',
+            catSlug: '',
             title: '',
             description: ''
         }
@@ -44,8 +51,22 @@ export default function BasicEditor({ categories }) {
         'link', 'image'
     ]
 
-    const onSubmit = (e) => {
-        console.log(e);
+    const onSubmit = async (data) => {
+        const res = await createBlog(data);
+        if (res.error) {
+            toast.error(res.error);
+        } else {
+            toast.success(res.success);
+            form.reset();
+        }
+    }
+
+    if (isLoading) {
+        return (
+            <div className="my-10 text-center">
+                <Spinner/>
+            </div>
+        )
     }
 
     return (
@@ -56,19 +77,19 @@ export default function BasicEditor({ categories }) {
                     <div className='space-y-4'>
                         <FormField
                             control={form.control}
-                            name="category"
+                            name="catSlug"
                             render={({ field }) => (
                                 <FormItem>
-                                    <Select onValueChange={field.onChange} defaultValue={categories[0].title}>
+                                    <Select onValueChange={field.onChange}>
                                         <FormControl>
                                             <SelectTrigger className="w-[180px]">
-                                                <SelectValue placeholder="Select a Category" value={categories[0].title}/>
+                                                <SelectValue placeholder="Select a Category" />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
                                             <SelectGroup>
-                                                {categories.map(item => (
-                                                    <SelectItem key={item.id} value={item.id}>{item.title}</SelectItem>
+                                                {data?.map(item => (
+                                                    <SelectItem key={item.id} value={item.slug}>{item.title}</SelectItem>
                                                 ))}
                                             </SelectGroup>
                                         </SelectContent>
@@ -109,7 +130,7 @@ export default function BasicEditor({ categories }) {
                             )}
                         />
                     </div>
-                    <Button size={"full"} className="shadow-md drop-shadow-sm">Login</Button>
+                    <Button size={"full"} className="shadow-md drop-shadow-sm text-md font-bold">Publish</Button>
                 </form>
             </Form>
         </div >

@@ -24,8 +24,8 @@ model User {
   password      String?
   role          UserRole  @default(USER)
   accounts      Account[]
-  post          Post[]
-  comment       Comment[]
+  posts          Post[]
+  comments       Comment[]
 }
 
 model Account {
@@ -60,7 +60,7 @@ model Post {
   createdAt DateTime  @default(now())
   slug      String    @unique
   title     String
-  desc      String
+  description      String
   img       String?
   views     Int       @default(0)
   catSlug   String
@@ -68,13 +68,13 @@ model Post {
   category  Category  @relation(fields: [catSlug], references: [slug])
   userEmail String
   user      User      @relation(fields: [userEmail], references: [email])
-  comment   Comment[]
+  Comments   Comment[]
 }
 
 model Comment {
   id        String   @id @default(cuid()) @map("_id")
   createdAt DateTime @default(now())
-  desc      String
+  description      String
   userEmail String
   user      User     @relation(fields: [userEmail], references: [email])
   postSlug  String

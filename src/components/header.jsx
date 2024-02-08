@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ThemeToggle } from './theme-toggler';
 import UserDropdown from './userDropdown';
 import { auth } from '../../auth';
+import SignOut from './sign-out';
 
 const Header = async () => {
     const session = await auth();
@@ -17,6 +18,7 @@ const Header = async () => {
                             <>
                                 <ThemeToggle />
                                 <UserDropdown {...session} />
+                                <SignOut/>
                             </>
                             :
                             <Link href="/auth/login">Login</Link>

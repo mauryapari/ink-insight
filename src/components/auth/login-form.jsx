@@ -27,7 +27,7 @@ export default function LoginForm() {
 
     const onSubmit = async (data) => {
         const res = await login(data);
-        if(res.error) {
+        if(res?.error) {
             toast.error(res.error);
         } else {
             toast.success(res.success);
@@ -59,19 +59,6 @@ export default function LoginForm() {
                         />
                         <FormField
                             control={form.control}
-                            name="email"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Username</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="Enter Mail" {...field} type="email" className="border-2"/>
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
                             name="password"
                             render={({ field }) => (
                                 <FormItem>
@@ -84,7 +71,7 @@ export default function LoginForm() {
                             )}
                         />
                     </div>
-                    <Button size={"full"} className="shadow-md drop-shadow-sm">Publish</Button>
+                    <Button size={"full"} className="shadow-md drop-shadow-sm">Login</Button>
                 </form>
             </Form>
         </CardWrapper>

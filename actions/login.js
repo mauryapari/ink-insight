@@ -12,7 +12,6 @@ export const login = async (values) => {
         return {error: "Invalid Field!"};
     }
 
-    console.log(validatedData);
 
     const { email, password } = validatedData.data;
 
@@ -27,9 +26,8 @@ export const login = async (values) => {
         }
     } catch(err) {
         if(err instanceof AuthError) {
-            console.log(err);
             switch (err.type) {
-                case "CredentialsSignIn":
+                case "CredentialsSignin":
                     return {error: "Invalid Credentials"};
                 default:
                     return {error: 'Something went Wrong!'};

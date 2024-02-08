@@ -18,7 +18,9 @@ export const RegisterFormSchema = z.object({
 })
 
 export const BlogFormSchema = z.object({
-    category:z.string(),
+    catSlug :z.string(1, {
+        message: 'Please select a category',
+    }),
     title: z.string().min(4,{
         message: 'Title should be 4 char long',
     }),
