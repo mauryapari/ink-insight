@@ -4,7 +4,6 @@ const { categories } = require("./seed-data/categories");
 
 const prisma = new PrismaClient();
 
-console.log(categories);
 
 async function main() {
   for (const category of categories) {

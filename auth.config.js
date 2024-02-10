@@ -14,7 +14,7 @@ const authConfig = {
                     const {email, password} = validatedData.data;
 
                     const user = await db.user.findUnique({where:{email}});
-                    console.log("user is", user);
+                    // console.log("user is", user);
                     if(!user && !user?.password) {
                         return null;
                     } 

@@ -14,6 +14,7 @@ const Header = async () => {
                     <div className='flex gap-4 items-center'>
                         <Link href="/">Home</Link>
                         <Link href="/about">About</Link>
+                        <Link href="/blog">Blogs</Link>
                         {session && session.user?.id ?
                             <>
                                 <ThemeToggle />

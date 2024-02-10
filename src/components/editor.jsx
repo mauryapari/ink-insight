@@ -12,21 +12,23 @@ import { Button } from "./ui/button";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
 import Spinner from "./ui/spinner";
 import { toast } from 'sonner';
-import { createBlog } from "../../actions/blogs";
+import { createBlog, updateBlogByID } from "../../actions/blogs";
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-export default function BasicEditor() {
+export default function BasicEditor({ blog, isEditable = false }) {
     const { data, error, isLoading } = useSWR('/api/category', fetcher);
-    
+
+    const { description, title, catSlug, id } = blog;
+
     const form = useForm({
         resolver: zodResolver(BlogFormSchema),
         defaultValues: {
-            catSlug: '',
-            title: '',
-            description: ''
+            catSlug: catSlug || '',
+            title: title || '',
+            description: description || ''
         }
     });
     const modules = {
@@ -52,7 +54,13 @@ export default function BasicEditor() {
     ]
 
     const onSubmit = async (data) => {
-        const res = await createBlog(data);
+        let res;
+
+        if (isEditable) {
+            res = await updateBlogByID(data, id);
+        } else {
+            res = await createBlog(data);
+        }
         if (res.error) {
             toast.error(res.error);
         } else {
@@ -64,7 +72,7 @@ export default function BasicEditor() {
     if (isLoading) {
         return (
             <div className="my-10 text-center">
-                <Spinner/>
+                <Spinner />
             </div>
         )
     }

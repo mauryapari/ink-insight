@@ -27,7 +27,6 @@ export default function RegisterForm() {
     });
 
     const onSubmit = async (data) => {
-        console.log(data);
         const res = await register(data);
         if (res.error) {
             toast.error(res.error);

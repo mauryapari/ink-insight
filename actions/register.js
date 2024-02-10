@@ -20,7 +20,7 @@ export const register = async (values) => {
         }
     });
 
-    console.log(existingUser);
+    // console.log(existingUser);
 
     if(existingUser) {
         return {error: "Email Already in Use!"};
@@ -36,6 +36,6 @@ export const register = async (values) => {
     })
 
     //TODO: Send verfication email;
-    console.log(values);
+    // console.log(values);
     return {success: 'User Created'};
 }

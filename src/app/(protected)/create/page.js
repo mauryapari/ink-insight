@@ -9,7 +9,8 @@ export default async function create() {
         Toolbar options.
       </p>
       <div>
-        <BasicEditor/>
+        {/* TODO: FIx this */}
+        <BasicEditor blog={{}}/>
       </div>
     </main>
   );
