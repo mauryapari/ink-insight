@@ -14,27 +14,33 @@ import { AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import { FaPen, FaUser } from 'react-icons/fa';
 import Spinner from './ui/spinner';
 
-export default function UserDropdown({ user}) {
+export default function UserDropdown({ user }) {
     return (
         <div className='ml-4'>
             <DropdownMenu>
-                <DropdownMenuTrigger className='flex items-center'>
-                    <Avatar className="mr-4">
-                        <AvatarImage src={user?.image} />
-                        <AvatarFallback className='my-2 block'><Spinner className={'h-4 w-4'} /></AvatarFallback>
-                    </Avatar>
-                    {user?.name}
+                <DropdownMenuTrigger asChild>
+                    <div className='flex items-center cursor-pointer'>
+                        <Avatar className="mr-4">
+                            <AvatarImage src={user?.image} />
+                            <AvatarFallback className='my-2 block'><Spinner className={'h-4 w-4'} /></AvatarFallback>
+                        </Avatar>
+                        {user?.name}
+                    </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className='w-48'>
                     <DropdownMenuGroup>
-                        <DropdownMenuItem className='flex'>
-                            <FaUser className='mr-2 h-4 w-4' />
-                            <Link href="/settings">Profile</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <FaPen className='mr-2 h-4 w-4' />
-                            <Link href="/create">Create</Link>
-                        </DropdownMenuItem>
+                        <Link href="/settings">
+                            <DropdownMenuItem className='cursor-pointer'>
+                                <FaUser className='mr-2 h-4 w-4' />
+                                Profile
+                            </DropdownMenuItem>
+                        </Link>
+                        <Link href="/create">
+                            <DropdownMenuItem className="cursor-pointer">
+                                <FaPen className='mr-2 h-4 w-4' />
+                                Create
+                            </DropdownMenuItem>
+                        </Link>
                     </DropdownMenuGroup>
                 </DropdownMenuContent>
             </DropdownMenu>

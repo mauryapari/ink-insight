@@ -22,6 +22,7 @@ export function renderMarkdownToHTML(markdown) {
   return {__html: renderHTML};
 }
 
-export function ISOtoReadableDate(date) {
+export function ISOtoReadableDate(createdAt) {
+  const date = new Date(createdAt);
   return `${new Intl.DateTimeFormat("en-US", {month: "long"}).format(date)} ${date.getDate()}, ${date.getFullYear()}`
 }

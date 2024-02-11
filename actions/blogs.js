@@ -3,6 +3,7 @@
 import { db } from "@/lib/db";
 import { auth } from "../auth"
 import { createSlug } from "@/lib/utils";
+import { revalidateTag, unstable_cache } from 'next/cache'; // import the unstable cache
 
 export const createBlog = async (values) => {
     try {
@@ -34,6 +35,8 @@ export const createBlog = async (values) => {
             }
         })
 
+        revalidateTag('latest-blogs')
+
         return {success: 'Post Created'}
     }catch(err) {
         // console.log(err);
@@ -42,23 +45,27 @@ export const createBlog = async (values) => {
 }
 
 
-export const getLatestPublishedBlogs = async () => {
-    try {
-        const blogs = await db.post.findMany({
-            where: {
-                published: true
-            },
-            take:10,
-            orderBy: {
-                createdAt: 'desc'
-            }
-        });
-        // console.log(blogs);
-        return blogs;
-    } catch(err) {
-        return null
-    }
-}
+export const getLatestPublishedBlogs = unstable_cache(
+    async () => {
+        try {
+            const blogs = await db.post.findMany({
+                where: {
+                    published: true
+                },
+                take:10,
+                orderBy: {
+                    createdAt: 'desc'
+                }
+            });
+            // console.log(blogs);
+            return blogs;
+        } catch(err) {
+            return null
+        }
+    },
+    ['blogs'],
+    {tags: ['latest-blogs'], revalidate: 3600}
+)
 
 export const getBlogsByUser = async() => {
     try {
@@ -84,6 +91,9 @@ export const getBlogsByUser = async() => {
         const userBlogs = await db.post.findMany({
             where: {
                 userEmail: session.user.email
+            },
+            orderBy: {
+                createdAt: 'desc'
             }
         })
 
@@ -155,6 +165,10 @@ export const updateBlogByID = async(data, postID) => {
             }
         })
         
+        if(!updatedBlog) {
+            throw new Error('Operation Unsuccessful');
+        }
+        revalidateTag('latest-blogs');
         return {success: 'Update Successful', blog:updatedBlog};
     } catch(err) {
         return {error: err}
@@ -186,6 +200,11 @@ export const deleteBlogByID = async(postID) => {
             }
         })
         
+        if(!deletedBlog) {
+            throw new Error('Operation Unsuccessful')
+        }
+
+        revalidateTag('latest-blogs')
         return {success: 'Deletion Successful', blog:deletedBlog};
     } catch(err) {
         return {error: err}
@@ -220,6 +239,11 @@ export const unPublishBlogByID = async (data, postID) => {
             }
         })
         
+        if(!updatedBlog) {
+            throw new Error('Something went Wrong!');
+        }
+
+        revalidateTag('latest-blogs');
         return {success: 'Unpublish Successful', blog:updatedBlog};
     } catch(err) {
         return {error: err}

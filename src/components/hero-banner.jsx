@@ -16,7 +16,7 @@ const HeroBanner = () => {
                 height={900}
                 priority
             />
-            <div className="absolute bottom-1/2 w-full translate-y-[50%] p-8 bg-gradient-to-r from-[#2f2f2f80] to-transparent">
+            <div className="lg:absolute lg:bottom-1/2 w-full lg:translate-y-[50%] p-8 bg-gradient-to-r from-[#2f2f2f80] to-transparent">
                 <h2 className="text-4xl font-bold mb-4 text-white">
                     Welcome to our blog!
                 </h2>

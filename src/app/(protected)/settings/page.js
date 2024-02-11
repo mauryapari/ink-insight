@@ -10,10 +10,14 @@ import { Badge } from "@/components/ui/badge";
 export default async function SettingsPage() {
   const blogData = await getBlogsByUser();
 
-  if(!blogData) {
-    return null 
+  if(!blogData.length) {
+    return <div className="container mx-auto text-2xl items-center my-10">
+        No Blogs Present. <br/>
+
+        <Link href="/create" className="text-sm underline underline-offset-4 mt-20">Create a Blog...</Link>
+    </div>
   }
-  
+
   return (
     <div className="container mx-auto">
       Settings Page
