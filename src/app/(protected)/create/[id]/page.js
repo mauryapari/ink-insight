@@ -32,3 +32,12 @@ export default async function CreateDetailPage({ params: { id } }) {
     </main>
   );
 }
+
+export async function generateMetadata({params: {id}}) {
+  const blog = await getBlogBySlug(id);
+
+  return {
+    title: blog.title,
+    creator: blog.userEmail
+  }
+}

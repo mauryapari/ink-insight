@@ -51,3 +51,10 @@ export default async function CategoryDetailPage(props) {
         </div>
     )
 }
+
+export async function generateMetadata({params:{id}}) {
+
+    return {
+        title: `${id.toUpperCase()} Blogs`
+    }
+}

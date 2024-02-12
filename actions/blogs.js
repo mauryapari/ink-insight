@@ -108,8 +108,8 @@ export const getBlogsByCategory = async(id) => {
         const blogs = await db.post.findMany({
             where: {
                 catSlug: id,
+                published: true
             },
-            take:10,
             orderBy: {
                 createdAt: 'desc'
             }
@@ -244,7 +244,7 @@ export const unPublishBlogByID = async (data, postID) => {
         }
 
         revalidateTag('latest-blogs');
-        return {success: 'Unpublish Successful', blog:updatedBlog};
+        return {success: `${updatedBlog.published? 'Publishing': 'Unpublish'} Successful`, blog:updatedBlog};
     } catch(err) {
         return {error: err}
     }
