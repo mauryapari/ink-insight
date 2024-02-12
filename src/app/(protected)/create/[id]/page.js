@@ -37,7 +37,7 @@ export async function generateMetadata({params: {id}}) {
   const blog = await getBlogBySlug(id);
 
   return {
-    title: blog.title,
-    creator: blog.userEmail
+    title: blog?.title,
+    creator: blog?.userEmail
   }
 }
