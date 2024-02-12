@@ -14,7 +14,7 @@ export default function Hamburger() {
 
     useEffect(()=>{
         setIsExpanded(false);
-        console.log(pathName);
+        // console.log(pathName);
     }, [pathName]);
 
     return (

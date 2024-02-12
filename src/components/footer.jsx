@@ -14,7 +14,8 @@ export default function Footer() {
                 <div className="flex justify-evenly">
                     <p className="flex-1 text-md text-center">CopyRight 2024 All Rights Reserved</p> |
                     <Link href="/" className="flex-1 text-md text-center">Terms & Conditions</Link> |
-                    <Link href="/" className=" flex-1 text-md text-center">Privacy Policy</Link>
+                    <Link href="/" className=" flex-1 text-md text-center">Privacy Policy</Link> | 
+                    <Link href="https://github.com/mauryapari/ink-insight" className="flex-1 text-md text-center">View Project On Github</Link>
                 </div>
             </div>
         </footer>

@@ -16,6 +16,8 @@ export default async function BlogDetailPage({ params: { id } }) {
 export async function generateStaticParams() {
   const blogs = await getLatestPublishedBlogs();
   const data = blogs?.slice(0, 5);
+  //  Needed initially for building this project on vercel as 
+  // due to no data present. i was getting build error.
   if(!data.length) {
     data.push({slug: 'Static page'});
   }
