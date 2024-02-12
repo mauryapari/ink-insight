@@ -12,11 +12,12 @@ export default async function BlogDetailPage({params: {id}}) {
 
 export async function generateStaticParams() {
   const blogs = await getLatestPublishedBlogs();
-  const data =  blogs?.slice(0,5);
-
-  return data?.map(item => ({
-    id: item.slug
-  }))
+  const data =  blogs?.slice(0,5)
+  if(data?.length) {
+    return data?.map(item => ({
+      id: item?.slug
+    }))
+  }
 }
 
 export async function generateMetadata({params: {id}}) {
